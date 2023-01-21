@@ -89,6 +89,7 @@ def _print_dat(dat):
 
 def _transl_dat_dict(lang_dict,transl_func,pbar):
 
+    
     items = list(lang_dict.items())
     for k,v in items:
         if isinstance(v , dict):
