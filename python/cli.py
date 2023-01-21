@@ -11,34 +11,46 @@ import app
 import language
 from tqdm.auto import tqdm
 
+CLI_HELP = """Translates or transliterates Lang.dat files of Spacer Rangers
+2/HD game. Default behavior is transliteration as it doesn't require access to
+DeepL.com api. If you want to translate. Read README.md to find out what needs
+to be done."""
 
 def _get_args():
-    parser = argparse.ArgumentParser()
 
-    subparsers = parser.add_subparsers(help="Subcommands")
+    parser = argparse.ArgumentParser(
+        description=CLI_HELP)
 
-    parser_show = subparsers.add_parser("show")
+    subparsers = parser.add_subparsers(help="Available")
+
+    parser_show = subparsers.add_parser("show",help="Reads Lang.dat and prints it as json to stdout")
     parser_show.set_defaults(func=command_show)
-    parser_show.add_argument("file")
+    parser_show.add_argument("file",help ="Path to Lang.dat file")
 
-    parser_transl = subparsers.add_parser("transl_dat")
+    parser_transl = subparsers.add_parser(
+        "transl_dat",                               
+        help="Translate signle dat file Lang.Dat.transl in the same folder")
     _add_transl_argument(parser_transl)
-    parser_transl.add_argument("file")
+    parser_transl.add_argument("file",help="Dat file to translate")
     parser_transl.add_argument(
         "--stdout", help="Prints result to stdout, not to a file", action="store_true"
     )
 
     parser_transl.set_defaults(func=command_transl_dat)
 
-    parser_transl_mod = subparsers.add_parser("transl_mod")
+    parser_transl_mod = subparsers.add_parser(
+        "transl_mod",
+        help="Translates ModuleInfo.txt and CFG/Rus/Lang.Dat in a mod folder")
     _add_transl_argument(parser_transl_mod)
-    parser_transl_mod.add_argument("folder")
+    parser_transl_mod.add_argument("folder",help = "Path to a mod folder")
     parser_transl_mod.set_defaults(func=command_transl_mod)
 
-    parser_transl_all_mods = subparsers.add_parser("transl_all_mods")
+    parser_transl_all_mods = subparsers.add_parser(
+        "transl_all_mods",
+        help = "Translates all mods in Space Ranger/Mods folder")
 
     _add_transl_argument(parser_transl_all_mods)
-    parser_transl_all_mods.add_argument("folder")
+    parser_transl_all_mods.add_argument("folder", help='Path to Mods folder')
     parser_transl_all_mods.set_defaults(func=command_transl_all_mods)
     return parser.parse_args()
 
