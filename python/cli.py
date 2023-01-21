@@ -7,10 +7,9 @@ import traceback
 import warnings
 from datetime import datetime
 
-from tqdm.auto import tqdm
-
 import app
 import language
+from tqdm.auto import tqdm
 
 
 def _get_args():

@@ -8,9 +8,14 @@ from datetime import datetime
 
 import chardet
 import rangers.dat
+import utils
 from tqdm.auto import tqdm
 
-import utils
+WARNING_MODULE_INFO_TRANSLATED = "English translation alredy present in module info. All translated text will be skipped over and retranslated"
+WARNING_DAT_TRANSLATED_SKIPPING = "English Lang.dat found. Skipping"
+WARNING_DAT_TRANSLATED_REWRITE = (
+    "English Lang.dat found. Backing up existing. Previous will be rewritten"
+)
 
 
 def show_dat(file_path):
@@ -39,13 +44,11 @@ def translate_mod(folder_path, transl_func, rewrite=False, notify_progress=False
 
     if eng_path.exists():
         if rewrite:
-            warnings.warn(
-                f"English dat file found. File will be backed up and replaced. Path: {eng_path}"
-            )
+            warnings.warn(WARNING_DAT_TRANSLATED_REWRITE)
 
             _backup_file(eng_path)
         else:
-            warnings.warn(f"English dat file found. Skipping. Path: {eng_path}")
+            warnings.warn(WARNING_DAT_TRANSLATED_SKIPPING)
             return
 
     if rus_path.exists():
@@ -99,9 +102,7 @@ def _transl_module_info_file(module_info, location, transl_func, rewrite=False):
     for key, value in module_info:
         if key == "Languages" and "Eng" in value:
             if rewrite:
-                warnings.warn(
-                    "English translation alredy present in module info. All translated text will be skipped over and retranslated"
-                )
+                warnings.warn(WARNING_MODULE_INFO_TRANSLATED)
             else:
                 return module_info
 
