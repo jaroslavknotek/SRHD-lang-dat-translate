@@ -126,6 +126,9 @@ Thanks belongs to:
 
 # Mods that worked
 
+Used: [Community version from 28.09.22] https://bit.ly/3ozShba
+Updated with [this archive](https://bit.ly/36tqH9o)
+
 The following mods were processed with this application (In total, it was 1,300,861 characters)
 ```
 Evolution-EvoArmada
