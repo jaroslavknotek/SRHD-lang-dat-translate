@@ -1,0 +1,4 @@
+tqdm==4.64.1
+git+https://github.com/jaroslavknotek/ranger-tools#egg=ranger-tools
+requests==2.28.2
+cyrtranslit==1.1
