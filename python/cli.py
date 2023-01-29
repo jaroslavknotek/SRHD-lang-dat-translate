@@ -105,7 +105,7 @@ def command_transl_all_mods(args):
 
     folders = [x for x in folder_path.glob("*/*") if x.is_dir()]
     if len(folders) == 0:
-        warnings.warn("No folders found in {str(folder_path)}")
+        warnings.warn(f"No folders found in {str(folder_path)}")
     params = [(x, _resolve_transl_func(args)) for x in folders]
     total = len(params)
     with mp.Pool() as pool:
